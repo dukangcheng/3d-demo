@@ -169,12 +169,12 @@
         }
 
         function setupLighting() {
-            // 环境光
-            const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.75);
+            // 环境光 - 降低亮度使细节更清晰
+            const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.4);
             scene.add(ambientLight);
 
-            // 主光源（模拟天窗）
-            const mainLight = new THREE.DirectionalLight(0xFFFFEE, 1.0);
+            // 主光源（模拟天窗）- 降低强度
+            const mainLight = new THREE.DirectionalLight(0xFFFFEE, 0.5);
             mainLight.position.set(10, 20, 10);
             mainLight.castShadow = true;
             mainLight.shadow.mapSize.width = 2048;
@@ -205,14 +205,14 @@
             ];
 
             lightPositions.forEach(pos => {
-                const pointLight = new THREE.PointLight(0xFFFFEE, 0.7, 15);
+                const pointLight = new THREE.PointLight(0xFFFFEE, 0.3, 15);
                 pointLight.position.set(...pos);
                 scene.add(pointLight);
 
                 // 灯罩视觉效果
                 const lampShade = new THREE.Mesh(
                     new THREE.CylinderGeometry(0.25, 0.35, 0.15, 16),
-                    new THREE.MeshStandardMaterial({ color: colors.fabric, emissive: colors.light, emissiveIntensity: 0.3 })
+                    new THREE.MeshStandardMaterial({ color: colors.fabric, emissive: colors.light, emissiveIntensity: 0.2 })
                 );
                 lampShade.position.set(pos[0], pos[1], pos[2]);
                 scene.add(lampShade);

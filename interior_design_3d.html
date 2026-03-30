@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D室内设计效果图 - 3室2厅2卫</title>
+    <title>3D室内设计效果图 - 奶油风</title>
     <style>
         body { margin: 0; overflow: hidden; font-family: 'Microsoft YaHei', sans-serif; }
         #info {
             position: absolute;
             top: 10px;
             left: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
+            background: rgba(232, 222, 211, 0.95);
+            color: #5C4B37;
             padding: 15px;
             border-radius: 8px;
             z-index: 100;
-            max-width: 300px;
+            max-width: 320px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         #controls {
             position: absolute;
@@ -25,402 +26,1054 @@
             display: flex;
             gap: 10px;
             z-index: 100;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         button {
-            padding: 10px 20px;
-            background: rgba(74, 74, 74, 0.9);
-            color: white;
+            padding: 10px 18px;
+            background: #D4B8A0;
+            color: #5C4B37;
             border: 2px solid #C4A484;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             transition: all 0.3s;
+            font-weight: 500;
         }
         button:hover {
-            background: rgba(196, 164, 132, 0.9);
-            color: #4A4A4A;
+            background: #C4A484;
+            color: #F5EBE0;
+            transform: translateY(-2px);
         }
-        h3 { margin: 0 0 10px 0; color: #C4A484; }
-        p { margin: 5px 0; font-size: 13px; line-height: 1.5; }
-        .highlight { color: #FFD700; font-weight: bold; }
+        h3 { margin: 0 0 10px 0; color: #8B7355; font-size: 18px; }
+        p { margin: 5px 0; font-size: 13px; line-height: 1.6; color: #6B5B45; }
+        .highlight { color: #B8956B; font-weight: bold; }
+        .legend {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #D4C4B0;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 3px 8px 3px 0;
+            font-size: 12px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
     <div id="info">
-        <h3>🏠 3室2厅2卫 户型设计</h3>
-        <p><span class="highlight">主卧室</span> + 独立卫生间</p>
-        <p><span class="highlight">次卧室×2</span></p>
-        <p><span class="highlight">客厅</span> + <span class="highlight">餐厅</span></p>
-        <p><span class="highlight">公共卫生间</span></p>
-        <p><span class="highlight">厨房</span></p>
-        <hr style="border-color: #C4A484;">
-        <p>🖱️ 鼠标操作：旋转/平移/缩放</p>
-        <p>🎨 风格：现代简约</p>
+        <h3>🏠 奶油风 · 3室2厅2卫</h3>
+        <p>温馨柔和的奶油色调设计</p>
+        <p>━━━━━━━━━━━━━━━━━━━━</p>
+        <p><span class="highlight">🛋️ 客厅:</span> 云朵沙发、茶几、电视柜</p>
+        <p><span class="highlight">🍽️ 餐厅:</span> 圆形餐桌、餐椅组合</p>
+        <p><span class="highlight">🛏️ 主卧:</span> 双人床、床头柜、衣柜</p>
+        <p><span class="highlight">🛏️ 次卧:</span> 单人床、书桌、书架</p>
+        <p><span class="highlight">🚿 卫生间:</span> 洗手台、马桶、淋浴房</p>
+        <p><span class="highlight">🍳 厨房:</span> 橱柜、冰箱、微波炉</p>
+        <div class="legend">
+            <p style="margin-bottom:8px;"><strong>元素图例:</strong></p>
+            <span class="legend-item"><span class="legend-color" style="background:#FFF8DC;"></span>灯具</span>
+            <span class="legend-item"><span class="legend-color" style="background:#DAA520;"></span>插座</span>
+            <span class="legend-item"><span class="legend-color" style="background:#4A4A4A;"></span>电器</span>
+            <span class="legend-item"><span class="legend-color" style="background:#D4B8A0;"></span>家具</span>
+        </div>
     </div>
     
     <div id="controls">
-        <button onclick="setView('overview')">全景视图</button>
-        <button onclick="setView('living')">客厅</button>
-        <button onclick="setView('master')">主卧室</button>
-        <button onclick="setView('kitchen')">厨房</button>
-        <button onclick="toggleWalls()">墙体显示/隐藏</button>
+        <button onclick="setView('overview')">🏠 全景视角</button>
+        <button onclick="setView('living')">🛋️ 客厅</button>
+        <button onclick="setView('dining')">🍽️ 餐厅</button>
+        <button onclick="setView('master')">🛏️ 主卧室</button>
+        <button onclick="setView('bedroom2')">🛏️ 次卧1</button>
+        <button onclick="setView('bedroom3')">🛏️ 次卧2</button>
+        <button onclick="setView('kitchen')">🍳 厨房</button>
+        <button onclick="setView('bathroom1')">🚿 主卫</button>
+        <button onclick="setView('bathroom2')">🚿 公卫</button>
+        <button onclick="toggleWalls()">🧱 墙体开关</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        // 场景初始化
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xF0F8FF);
-        
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(25, 20, 25);
-        
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        document.body.appendChild(renderer.domElement);
-        
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        
-        // 光照系统 - 增强对比度
-        const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.7);
-        scene.add(ambientLight);
-        
-        const mainLight = new THREE.DirectionalLight(0xFFFFFF, 1.0);
-        mainLight.position.set(20, 30, 20);
-        mainLight.castShadow = true;
-        mainLight.shadow.mapSize.width = 2048;
-        mainLight.shadow.mapSize.height = 2048;
-        mainLight.shadow.camera.near = 0.5;
-        mainLight.shadow.camera.far = 100;
-        mainLight.shadow.camera.left = -30;
-        mainLight.shadow.camera.right = 30;
-        mainLight.shadow.camera.top = 30;
-        mainLight.shadow.camera.bottom = -30;
-        scene.add(mainLight);
-        
-        // 补充光源
-        const fillLight1 = new THREE.PointLight(0xFFE4B5, 0.6, 50);
-        fillLight1.position.set(-10, 8, -10);
-        scene.add(fillLight1);
-        
-        const fillLight2 = new THREE.PointLight(0xFFE4B5, 0.6, 50);
-        fillLight2.position.set(10, 8, 10);
-        scene.add(fillLight2);
-        
-        // 材质定义 - 颜色分明
-        const wallMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0x4A4A4A,  // 深灰色墙体
-            metalness: 0.3,
-            roughness: 0.7
-        });
-        
-        const floorMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0xC4A484,  // 深棕色地板
-            metalness: 0.2,
-            roughness: 0.8
-        });
-        
-        const roomFloorMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0xD2B48C,  // 房间浅色地板
-            metalness: 0.2,
-            roughness: 0.7
-        });
-        
-        const furnitureMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0x8B4513,  // 棕色家具
-            metalness: 0.1,
-            roughness: 0.9
-        });
-        
-        const cabinetMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0xDEB887,  // 米色橱柜
-            metalness: 0.3,
-            roughness: 0.6
-        });
-        
-        const glassMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0x87CEEB,
-            transparent: true,
-            opacity: 0.4,
-            metalness: 0.8,
-            roughness: 0.1
-        });
-        
-        const doorMaterial = new THREE.MeshStandardMaterial({ 
-            color: 0xA0522D,
-            metalness: 0.2,
-            roughness: 0.8
-        });
-        
-        let wallsVisible = true;
-        const wallGroups = [];
-        
-        // 创建墙体
-        function createWall(x, y, z, width, height, depth) {
-            const geometry = new THREE.BoxGeometry(width, height, depth);
-            const wall = new THREE.Mesh(geometry, wallMaterial);
-            wall.position.set(x, y, z);
-            wall.castShadow = true;
-            wall.receiveShadow = true;
-            return wall;
+        // 奶油风配色方案
+        const colors = {
+            wall: 0xE8DED3,        // 奶油墙面
+            wallDark: 0xD4C4B0,     // 深奶油墙面
+            floor: 0xF5EBE0,        // 浅色木地板
+            floorRoom: 0xF0E5D8,    // 房间地板
+            furniture: 0xD4B8A0,    // 家具主色
+            furnitureLight: 0xE8D5C4, // 浅色家具
+            furnitureDark: 0xB8956B,  // 深色家具
+            fabric: 0xFFF8DC,       // 布艺软装
+            fabricAccent: 0xE8C4A0, // 布艺点缀
+            appliance: 0x4A4A4A,    // 电器
+            applianceWhite: 0xF8F8F8, // 白色电器
+            metal: 0xC0C0C0,        // 金属件
+            wood: 0xA0826D,         // 木纹
+            plant: 0x7CB342,        // 绿植
+            socket: 0xDAA520,       // 插座金色
+            light: 0xFFFFE0,        // 灯光
+            glass: 0xE0F7FA,        // 玻璃
+            water: 0x4FC3F7         // 水
+        };
+
+        let scene, camera, renderer, controls;
+        let walls = [];
+        let showWalls = true;
+
+        function init() {
+            // 场景
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xFAF5F0);
+            scene.fog = new THREE.Fog(0xFAF5F0, 20, 60);
+
+            // 相机
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(20, 18, 20);
+
+            // 渲染器
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.body.appendChild(renderer.domElement);
+
+            // 控制器
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxPolarAngle = Math.PI / 2 - 0.1;
+            controls.minDistance = 5;
+            controls.maxDistance = 50;
+
+            // 光照
+            setupLighting();
+
+            // 创建户型
+            createFloorPlan();
+
+            // 事件监听
+            window.addEventListener('resize', onWindowResize);
+
+            // 动画循环
+            animate();
         }
-        
-        // 创建门洞
-        function createDoorway(x, z, rotation) {
-            const doorGroup = new THREE.Group();
-            const doorFrame = createWall(x, 1.5, z, 0.2, 3, 1.2);
-            doorGroup.add(doorFrame);
-            if (rotation === 'y') {
-                doorFrame.rotation.y = Math.PI / 2;
-            }
-            return doorGroup;
-        }
-        
-        // 地板
-        const floorGeometry = new THREE.PlaneGeometry(30, 25);
-        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-        floor.rotation.x = -Math.PI / 2;
-        floor.position.y = 0;
-        floor.receiveShadow = true;
-        scene.add(floor);
-        
-        // 外墙
-        const outerWalls = [
-            createWall(0, 2, -12.5, 30, 4, 0.3),  // 后墙
-            createWall(0, 2, 12.5, 30, 4, 0.3),   // 前墙
-            createWall(-15, 2, 0, 0.3, 4, 25),    // 左墙
-            createWall(15, 2, 0, 0.3, 4, 25)      // 右墙
-        ];
-        outerWalls.forEach(wall => {
-            scene.add(wall);
-            wallGroups.push(wall);
-        });
-        
-        // 内墙 - 房间分隔
-        // 主卧隔墙
-        const masterWall1 = createWall(-8, 2, -6, 0.2, 4, 13);
-        scene.add(masterWall1);
-        wallGroups.push(masterWall1);
-        
-        // 次卧隔墙
-        const bedroomWall1 = createWall(8, 2, -6, 0.2, 4, 13);
-        scene.add(bedroomWall1);
-        wallGroups.push(bedroomWall1);
-        
-        // 中间走廊墙
-        const corridorWall1 = createWall(0, 2, 0, 16, 4, 0.2);
-        scene.add(corridorWall1);
-        wallGroups.push(corridorWall1);
-        
-        // 卫生间隔墙
-        const bathWall1 = createWall(-8, 2, 6, 0.2, 4, 7);
-        scene.add(bathWall1);
-        wallGroups.push(bathWall1);
-        
-        const bathWall2 = createWall(8, 2, 6, 0.2, 4, 7);
-        scene.add(bathWall2);
-        wallGroups.push(bathWall2);
-        
-        // 厨房隔墙
-        const kitchenWall = createWall(12, 2, 8, 6, 4, 0.2);
-        scene.add(kitchenWall);
-        wallGroups.push(kitchenWall);
-        
-        // 客厅区域家具
-        // 沙发
-        const sofaBase = new THREE.Mesh(new THREE.BoxGeometry(4, 0.8, 1.5), furnitureMaterial);
-        sofaBase.position.set(-5, 0.4, 8);
-        sofaBase.castShadow = true;
-        scene.add(sofaBase);
-        
-        const sofaBack = new THREE.Mesh(new THREE.BoxGeometry(4, 1, 0.3), furnitureMaterial);
-        sofaBack.position.set(-5, 1, 7.4);
-        sofaBack.castShadow = true;
-        scene.add(sofaBack);
-        
-        // 茶几
-        const coffeeTable = new THREE.Mesh(new THREE.BoxGeometry(2, 0.5, 1.2), cabinetMaterial);
-        coffeeTable.position.set(-5, 0.25, 5);
-        coffeeTable.castShadow = true;
-        scene.add(coffeeTable);
-        
-        // 电视柜
-        const tvStand = new THREE.Mesh(new THREE.BoxGeometry(3, 0.6, 0.8), furnitureMaterial);
-        tvStand.position.set(10, 0.3, 8);
-        tvStand.castShadow = true;
-        scene.add(tvStand);
-        
-        // 餐桌
-        const diningTable = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.7, 1.5), furnitureMaterial);
-        diningTable.position.set(0, 0.35, 5);
-        diningTable.castShadow = true;
-        scene.add(diningTable);
-        
-        // 餐椅
-        for (let i = 0; i < 4; i++) {
-            const chair = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.8, 0.5), furnitureMaterial);
-            const x = i < 2 ? -1.5 : 1.5;
-            const z = i % 2 === 0 ? 4 : 6;
-            chair.position.set(x, 0.4, z);
-            chair.castShadow = true;
-            scene.add(chair);
-        }
-        
-        // 主卧室
-        const masterBed = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.6, 2), furnitureMaterial);
-        masterBed.position.set(-12, 0.3, -8);
-        masterBed.castShadow = true;
-        scene.add(masterBed);
-        
-        const masterBedHead = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1, 0.2), furnitureMaterial);
-        masterBedHead.position.set(-12, 0.8, -9);
-        masterBedHead.castShadow = true;
-        scene.add(masterBedHead);
-        
-        const nightStand1 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.5, 0.5), cabinetMaterial);
-        nightStand1.position.set(-13.5, 0.25, -8);
-        nightStand1.castShadow = true;
-        scene.add(nightStand1);
-        
-        const nightStand2 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.5, 0.5), cabinetMaterial);
-        nightStand2.position.set(-10.5, 0.25, -8);
-        nightStand2.castShadow = true;
-        scene.add(nightStand2);
-        
-        const wardrobe = new THREE.Mesh(new THREE.BoxGeometry(0.6, 2, 1.5), cabinetMaterial);
-        wardrobe.position.set(-13.5, 1, -5);
-        wardrobe.castShadow = true;
-        scene.add(wardrobe);
-        
-        // 主卫
-        const toilet = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.5, 0.6), new THREE.MeshStandardMaterial({ color: 0xFFFFFF }));
-        toilet.position.set(-12, 0.25, 5);
-        toilet.castShadow = true;
-        scene.add(toilet);
-        
-        const sink = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.2, 0.4), new THREE.MeshStandardMaterial({ color: 0xFFFFFF }));
-        sink.position.set(-10, 0.6, 6);
-        sink.castShadow = true;
-        scene.add(sink);
-        
-        const shower = new THREE.Mesh(new THREE.BoxGeometry(1, 0.1, 1), glassMaterial);
-        shower.position.set(-11, 0.05, 8);
-        shower.castShadow = true;
-        scene.add(shower);
-        
-        // 次卧室1
-        const bed1 = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.5, 1.8), furnitureMaterial);
-        bed1.position.set(12, 0.25, -8);
-        bed1.castShadow = true;
-        scene.add(bed1);
-        
-        const desk1 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.7, 0.6), cabinetMaterial);
-        desk1.position.set(13, 0.35, -5);
-        desk1.castShadow = true;
-        scene.add(desk1);
-        
-        // 次卧室2
-        const bed2 = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.5, 1.8), furnitureMaterial);
-        bed2.position.set(5, 0.25, -8);
-        bed2.castShadow = true;
-        scene.add(bed2);
-        
-        const desk2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.7, 0.6), cabinetMaterial);
-        desk2.position.set(6, 0.35, -5);
-        desk2.castShadow = true;
-        scene.add(desk2);
-        
-        // 公共卫生间
-        const toilet2 = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.5, 0.6), new THREE.MeshStandardMaterial({ color: 0xFFFFFF }));
-        toilet2.position.set(5, 0.25, 8);
-        toilet2.castShadow = true;
-        scene.add(toilet2);
-        
-        const sink2 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.2, 0.4), new THREE.MeshStandardMaterial({ color: 0xFFFFFF }));
-        sink2.position.set(7, 0.6, 8);
-        sink2.castShadow = true;
-        scene.add(sink2);
-        
-        // 厨房
-        const kitchenCounter = new THREE.Mesh(new THREE.BoxGeometry(5, 0.9, 0.8), cabinetMaterial);
-        kitchenCounter.position.set(12, 0.45, 11);
-        kitchenCounter.castShadow = true;
-        scene.add(kitchenCounter);
-        
-        const upperCabinet = new THREE.Mesh(new THREE.BoxGeometry(5, 0.8, 0.6), cabinetMaterial);
-        upperCabinet.position.set(12, 1.9, 11.2);
-        upperCabinet.castShadow = true;
-        scene.add(upperCabinet);
-        
-        const fridge = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1.8, 0.8), new THREE.MeshStandardMaterial({ color: 0xC0C0C0, metalness: 0.8, roughness: 0.2 }));
-        fridge.position.set(14.5, 0.9, 10);
-        fridge.castShadow = true;
-        scene.add(fridge);
-        
-        // 窗户
-        const window1 = new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), glassMaterial);
-        window1.position.set(-5, 2, -12.4);
-        scene.add(window1);
-        
-        const window2 = new THREE.Mesh(new THREE.PlaneGeometry(2, 1.5), glassMaterial);
-        window2.position.set(5, 2, -12.4);
-        scene.add(window2);
-        
-        const window3 = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.5), glassMaterial);
-        window3.position.set(-12.4, 2, -8);
-        window3.rotation.y = Math.PI / 2;
-        scene.add(window3);
-        
-        // 视角切换函数
-        function setView(viewName) {
-            switch(viewName) {
-                case 'overview':
-                    camera.position.set(25, 20, 25);
-                    camera.lookAt(0, 0, 0);
-                    break;
-                case 'living':
-                    camera.position.set(0, 8, 15);
-                    camera.lookAt(0, 2, 0);
-                    break;
-                case 'master':
-                    camera.position.set(-12, 8, -12);
-                    camera.lookAt(-12, 2, -8);
-                    break;
-                case 'kitchen':
-                    camera.position.set(12, 8, 15);
-                    camera.lookAt(12, 2, 10);
-                    break;
-            }
-        }
-        
-        // 墙体显示/隐藏
-        function toggleWalls() {
-            wallsVisible = !wallsVisible;
-            wallGroups.forEach(wall => {
-                wall.visible = wallsVisible;
+
+        function setupLighting() {
+            // 环境光
+            const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.75);
+            scene.add(ambientLight);
+
+            // 主光源（模拟天窗）
+            const mainLight = new THREE.DirectionalLight(0xFFFFEE, 1.0);
+            mainLight.position.set(10, 20, 10);
+            mainLight.castShadow = true;
+            mainLight.shadow.mapSize.width = 2048;
+            mainLight.shadow.mapSize.height = 2048;
+            mainLight.shadow.camera.near = 0.5;
+            mainLight.shadow.camera.far = 50;
+            mainLight.shadow.camera.left = -25;
+            mainLight.shadow.camera.right = 25;
+            mainLight.shadow.camera.top = 25;
+            mainLight.shadow.camera.bottom = -25;
+            scene.add(mainLight);
+
+            // 补光
+            const fillLight = new THREE.DirectionalLight(0xFFEEDD, 0.4);
+            fillLight.position.set(-10, 10, -10);
+            scene.add(fillLight);
+
+            // 室内点光源（模拟吸顶灯）
+            const lightPositions = [
+                [0, 3.5, 0],      // 客厅
+                [0, 3.5, -6],     // 餐厅
+                [-6, 3.5, 3],     // 主卧
+                [6, 3.5, 3],      // 次卧1
+                [6, 3.5, -3],     // 次卧2
+                [-6, 3.5, -6],    // 厨房
+                [-7, 3.5, 6],     // 主卫
+                [7, 3.5, 6]       // 公卫
+            ];
+
+            lightPositions.forEach(pos => {
+                const pointLight = new THREE.PointLight(0xFFFFEE, 0.7, 15);
+                pointLight.position.set(...pos);
+                scene.add(pointLight);
+
+                // 灯罩视觉效果
+                const lampShade = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.25, 0.35, 0.15, 16),
+                    new THREE.MeshStandardMaterial({ color: colors.fabric, emissive: colors.light, emissiveIntensity: 0.3 })
+                );
+                lampShade.position.set(pos[0], pos[1], pos[2]);
+                scene.add(lampShade);
             });
         }
-        
-        // 窗口大小调整
-        window.addEventListener('resize', () => {
+
+        function createFloorPlan() {
+            // 地板 - 整体
+            const floorGeometry = new THREE.BoxGeometry(20, 0.15, 18);
+            const floorMaterial = new THREE.MeshStandardMaterial({ 
+                color: colors.floor,
+                roughness: 0.7,
+                metalness: 0.05
+            });
+            const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+            floor.position.set(0, -0.075, 0);
+            floor.receiveShadow = true;
+            scene.add(floor);
+
+            // 墙体
+            createWalls();
+
+            // 各区域家具和装饰
+            createLivingRoom();
+            createDiningRoom();
+            createMasterBedroom();
+            createBedroom2();
+            createBedroom3();
+            createKitchen();
+            createBathroom1();
+            createBathroom2();
+        }
+
+        function createWalls() {
+            const wallThickness = 0.2;
+            const wallHeight = 3.5;
+            const wallMaterial = new THREE.MeshStandardMaterial({ 
+                color: colors.wall,
+                roughness: 0.8,
+                metalness: 0.1
+            });
+
+            // 外墙
+            const outerWalls = [
+                { size: [20, wallHeight, wallThickness], pos: [0, wallHeight/2, -9] },   // 北墙
+                { size: [20, wallHeight, wallThickness], pos: [0, wallHeight/2, 9] },    // 南墙
+                { size: [wallThickness, wallHeight, 18], pos: [-10, wallHeight/2, 0] },  // 西墙
+                { size: [wallThickness, wallHeight, 18], pos: [10, wallHeight/2, 0] }    // 东墙
+            ];
+
+            outerWalls.forEach(wall => {
+                const geometry = new THREE.BoxGeometry(...wall.size);
+                const mesh = new THREE.Mesh(geometry, wallMaterial);
+                mesh.position.set(...wall.pos);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                scene.add(mesh);
+                walls.push(mesh);
+            });
+
+            // 内墙
+            const innerWalls = [
+                // 横向隔墙
+                { size: [14, wallHeight, wallThickness], pos: [-3, wallHeight/2, 0] },   // 左侧房间隔墙
+                { size: [12, wallHeight, wallThickness], pos: [4, wallHeight/2, 0] },    // 右侧房间隔墙
+                { size: [20, wallHeight, wallThickness], pos: [0, wallHeight/2, -5] },   // 客厅餐厅隔墙
+                
+                // 纵向隔墙
+                { size: [wallThickness, wallHeight, 6], pos: [-6, wallHeight/2, 6] },    // 主卧与主卫
+                { size: [wallThickness, wallHeight, 6], pos: [6, wallHeight/2, 6] },     // 次卧与公卫
+                { size: [wallThickness, wallHeight, 8], pos: [-6, wallHeight/2, -6] },   // 厨房隔墙
+            ];
+
+            innerWalls.forEach(wall => {
+                const geometry = new THREE.BoxGeometry(...wall.size);
+                const mesh = new THREE.Mesh(geometry, wallMaterial);
+                mesh.position.set(...wall.pos);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                scene.add(mesh);
+                walls.push(mesh);
+            });
+
+            // 门洞处理（用深色表示门框）
+            createDoors(wallMaterial);
+        }
+
+        function createDoors(wallMaterial) {
+            const doorFrameMaterial = new THREE.MeshStandardMaterial({ 
+                color: colors.wood,
+                roughness: 0.6
+            });
+
+            const doors = [
+                { pos: [-3.5, 1.25, -2], size: [0.25, 2.5, 1.2] },   // 主卧门
+                { pos: [3.5, 1.25, -2], size: [0.25, 2.5, 1.2] },    // 次卧1门
+                { pos: [6.5, 1.25, 0], size: [1.2, 2.5, 0.25] },     // 次卧2门
+                { pos: [-8, 1.25, 3], size: [1.2, 2.5, 0.25] },      // 主卫门
+                { pos: [8, 1.25, 3], size: [1.2, 2.5, 0.25] },       // 公卫门
+                { pos: [-3, 1.25, -5.5], size: [1.5, 2.5, 0.25] },   // 餐厅入口
+                { pos: [-8, 1.25, -6], size: [1.2, 2.5, 0.25] },     // 厨房门
+                { pos: [0, 1.25, 9], size: [1.8, 2.5, 0.25] }        // 入户门
+            ];
+
+            doors.forEach(door => {
+                const geometry = new THREE.BoxGeometry(...door.size);
+                const mesh = new THREE.Mesh(geometry, doorFrameMaterial);
+                mesh.position.set(...door.pos);
+                mesh.castShadow = true;
+                scene.add(mesh);
+            });
+        }
+
+        function createLivingRoom() {
+            // 沙发组合（奶油风云朵沙发）
+            const sofaGroup = new THREE.Group();
+            
+            // 沙发主体
+            const sofaBase = new THREE.Mesh(
+                new THREE.BoxGeometry(3.5, 0.8, 1.2),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.9 })
+            );
+            sofaBase.position.y = 0.4;
+            sofaBase.castShadow = true;
+            sofaGroup.add(sofaBase);
+
+            // 沙发靠背
+            const sofaBack = new THREE.Mesh(
+                new THREE.BoxGeometry(3.5, 1.0, 0.4),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.9 })
+            );
+            sofaBack.position.set(0, 1.1, -0.5);
+            sofaBack.castShadow = true;
+            sofaGroup.add(sofaBack);
+
+            // 扶手
+            [ -1.6, 1.6 ].forEach(x => {
+                const armrest = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.3, 0.7, 1.2),
+                    new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.7 })
+                );
+                armrest.position.set(x, 0.75, 0);
+                armrest.castShadow = true;
+                sofaGroup.add(armrest);
+            });
+
+            // 抱枕
+            const pillowColors = [colors.fabricAccent, 0xE0C0A0, 0xF0D5B5];
+            pillowColors.forEach((color, i) => {
+                const pillow = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.35, 0.2),
+                    new THREE.MeshStandardMaterial({ color: color, roughness: 0.95 })
+                );
+                pillow.position.set(-0.8 + i * 0.8, 0.95, -0.3);
+                pillow.rotation.z = (i % 2) * 0.2 - 0.1;
+                pillow.castShadow = true;
+                sofaGroup.add(pillow);
+            });
+
+            sofaGroup.position.set(0, 0, 4);
+            scene.add(sofaGroup);
+
+            // 茶几
+            const coffeeTable = new THREE.Group();
+            const tableTop = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.8, 0.8, 0.08, 32),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.5 })
+            );
+            tableTop.position.y = 0.45;
+            tableTop.castShadow = true;
+            coffeeTable.add(tableTop);
+
+            const tableLeg = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.1, 0.12, 0.45, 16),
+                new THREE.MeshStandardMaterial({ color: colors.wood, roughness: 0.6 })
+            );
+            tableLeg.position.y = 0.225;
+            coffeeTable.add(tableLeg);
+
+            coffeeTable.position.set(0, 0, 2);
+            scene.add(coffeeTable);
+
+            // 电视柜
+            const tvStand = new THREE.Mesh(
+                new THREE.BoxGeometry(2.5, 0.5, 0.5),
+                new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.6 })
+            );
+            tvStand.position.set(0, 0.25, -8);
+            tvStand.castShadow = true;
+            scene.add(tvStand);
+
+            // 电视
+            const tv = new THREE.Mesh(
+                new THREE.BoxGeometry(1.6, 0.9, 0.08),
+                new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.2, metalness: 0.8 })
+            );
+            tv.position.set(0, 1.2, -7.85);
+            tv.castShadow = true;
+            scene.add(tv);
+
+            // 落地灯
+            const floorLamp = new THREE.Group();
+            const lampBase = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.2, 0.25, 0.05, 16),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.6, roughness: 0.3 })
+            );
+            floorLamp.add(lampBase);
+
+            const lampPole = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.03, 0.03, 1.6, 8),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.6, roughness: 0.3 })
+            );
+            lampPole.position.y = 0.8;
+            floorLamp.add(lampPole);
+
+            const lampShade = new THREE.Mesh(
+                new THREE.ConeGeometry(0.3, 0.4, 32, 1, true),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.9, side: THREE.DoubleSide })
+            );
+            lampShade.position.y = 1.7;
+            floorLamp.add(lampShade);
+
+            floorLamp.position.set(2.5, 0, 3.5);
+            scene.add(floorLamp);
+
+            // 地毯
+            const rug = new THREE.Mesh(
+                new THREE.BoxGeometry(4, 0.03, 2.5),
+                new THREE.MeshStandardMaterial({ color: 0xF5EDE0, roughness: 1.0 })
+            );
+            rug.position.set(0, 0.015, 2);
+            rug.receiveShadow = true;
+            scene.add(rug);
+
+            // 插座（墙壁上）
+            createSocket(9.85, 0.5, 5, "living");
+            createSocket(9.85, 0.5, -5, "living");
+            createSocket(-9.85, 0.5, 5, "living");
+        }
+
+        function createDiningRoom() {
+            // 餐桌
+            const diningTable = new THREE.Group();
+            const tableTop = new THREE.Mesh(
+                new THREE.CylinderGeometry(1.2, 1.2, 0.08, 48),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.4 })
+            );
+            tableTop.position.y = 0.75;
+            tableTop.castShadow = true;
+            diningTable.add(tableTop);
+
+            const tableLeg = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.15, 0.2, 0.75, 16),
+                new THREE.MeshStandardMaterial({ color: colors.wood, roughness: 0.5 })
+            );
+            tableLeg.position.y = 0.375;
+            diningTable.add(tableLeg);
+
+            diningTable.position.set(0, 0, -6);
+            scene.add(diningTable);
+
+            // 餐椅
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const chair = createChair();
+                chair.position.set(Math.cos(angle) * 1.6, 0, -6 + Math.sin(angle) * 1.6);
+                chair.rotation.y = -angle;
+                scene.add(chair);
+            }
+
+            // 吊灯（餐桌上方）
+            const pendantLight = new THREE.Group();
+            const cord = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.02, 0.02, 1.2, 8),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.7 })
+            );
+            cord.position.y = -0.6;
+            pendantLight.add(cord);
+
+            const shade = new THREE.Mesh(
+                new THREE.SphereGeometry(0.25, 32, 16, 0, Math.PI * 2, 0, Math.PI/2),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.8, emissive: colors.light, emissiveIntensity: 0.2 })
+            );
+            pendantLight.add(shade);
+
+            pendantLight.position.set(0, 3, -6);
+            scene.add(pendantLight);
+
+            // 插座
+            createSocket(9.85, 0.5, -6, "dining");
+            createSocket(-9.85, 0.5, -6, "dining");
+        }
+
+        function createChair() {
+            const chair = new THREE.Group();
+            
+            // 椅座
+            const seat = new THREE.Mesh(
+                new THREE.BoxGeometry(0.45, 0.1, 0.45),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.9 })
+            );
+            seat.position.y = 0.45;
+            seat.castShadow = true;
+            chair.add(seat);
+
+            // 椅背
+            const back = new THREE.Mesh(
+                new THREE.BoxGeometry(0.45, 0.5, 0.08),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.6 })
+            );
+            back.position.set(0, 0.85, -0.2);
+            back.castShadow = true;
+            chair.add(back);
+
+            // 椅腿
+            const legPositions = [[-0.18, -0.18], [0.18, -0.18], [-0.18, 0.18], [0.18, 0.18]];
+            legPositions.forEach(pos => {
+                const leg = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.04, 0.05, 0.45, 8),
+                    new THREE.MeshStandardMaterial({ color: colors.wood, roughness: 0.5 })
+                );
+                leg.position.set(pos[0], 0.225, pos[1]);
+                chair.add(leg);
+            });
+
+            return chair;
+        }
+
+        function createMasterBedroom() {
+            // 双人床
+            const bed = new THREE.Group();
+            
+            // 床架
+            const bedFrame = new THREE.Mesh(
+                new THREE.BoxGeometry(2, 0.4, 2.3),
+                new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.6 })
+            );
+            bedFrame.position.y = 0.2;
+            bedFrame.castShadow = true;
+            bed.add(bedFrame);
+
+            // 床垫
+            const mattress = new THREE.Mesh(
+                new THREE.BoxGeometry(1.9, 0.25, 2.2),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.95 })
+            );
+            mattress.position.y = 0.525;
+            mattress.castShadow = true;
+            bed.add(mattress);
+
+            // 被子
+            const duvet = new THREE.Mesh(
+                new THREE.BoxGeometry(1.85, 0.15, 1.5),
+                new THREE.MeshStandardMaterial({ color: colors.fabricAccent, roughness: 0.9 })
+            );
+            duvet.position.set(0, 0.675, 0.3);
+            duvet.castShadow = true;
+            bed.add(duvet);
+
+            // 枕头
+            [ -0.5, 0.5 ].forEach(x => {
+                const pillow = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.12, 0.35),
+                    new THREE.MeshStandardMaterial({ color: 0xFFF8F0, roughness: 0.9 })
+                );
+                pillow.position.set(x, 0.75, -0.7);
+                pillow.castShadow = true;
+                bed.add(pillow);
+            });
+
+            // 床头板
+            const headboard = new THREE.Mesh(
+                new THREE.BoxGeometry(2.2, 1.2, 0.15),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.5 })
+            );
+            headboard.position.set(0, 1.1, -1.2);
+            headboard.castShadow = true;
+            bed.add(headboard);
+
+            bed.position.set(-6, 0, 4);
+            scene.add(bed);
+
+            // 床头柜
+            [ -1.3, 1.3 ].forEach(x => {
+                const nightstand = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.5, 0.5, 0.4),
+                    new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.6 })
+                );
+                nightstand.position.set(-6 + x, 0.25, 3.5);
+                nightstand.castShadow = true;
+                scene.add(nightstand);
+
+                // 台灯
+                const lamp = new THREE.Group();
+                const lampBase = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.1, 0.12, 0.05, 16),
+                    new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.5 })
+                );
+                lamp.add(lampBase);
+                
+                const lampShade = new THREE.Mesh(
+                    new THREE.ConeGeometry(0.15, 0.25, 32, 1, true),
+                    new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.9, emissive: colors.light, emissiveIntensity: 0.15 })
+                );
+                lampShade.position.y = 0.25;
+                lamp.add(lampShade);
+                
+                lamp.position.set(-6 + x, 0.55, 3.5);
+                scene.add(lamp);
+            });
+
+            // 衣柜
+            const wardrobe = new THREE.Mesh(
+                new THREE.BoxGeometry(0.6, 2.2, 1.5),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.5 })
+            );
+            wardrobe.position.set(-8.5, 1.1, 4);
+            wardrobe.castShadow = true;
+            scene.add(wardrobe);
+
+            // 书桌
+            const desk = new THREE.Mesh(
+                new THREE.BoxGeometry(1.2, 0.75, 0.6),
+                new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.5 })
+            );
+            desk.position.set(-7.5, 0.375, 7);
+            desk.castShadow = true;
+            scene.add(desk);
+
+            // 椅子
+            const deskChair = createChair();
+            deskChair.position.set(-7.5, 0, 7.8);
+            deskChair.rotation.y = Math.PI;
+            scene.add(deskChair);
+
+            // 插座
+            createSocket(-9.85, 0.5, 4, "bedroom");
+            createSocket(-9.85, 0.5, 7, "bedroom");
+        }
+
+        function createBedroom2() {
+            // 单人床
+            const bed = new THREE.Group();
+            const bedFrame = new THREE.Mesh(
+                new THREE.BoxGeometry(1.3, 0.4, 2),
+                new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.6 })
+            );
+            bedFrame.position.y = 0.2;
+            bedFrame.castShadow = true;
+            bed.add(bedFrame);
+
+            const mattress = new THREE.Mesh(
+                new THREE.BoxGeometry(1.2, 0.2, 1.9),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.95 })
+            );
+            mattress.position.y = 0.5;
+            mattress.castShadow = true;
+            bed.add(mattress);
+
+            const duvet = new THREE.Mesh(
+                new THREE.BoxGeometry(1.15, 0.12, 1.3),
+                new THREE.MeshStandardMaterial({ color: 0xC4D4E0, roughness: 0.9 })
+            );
+            duvet.position.set(0, 0.62, 0.2);
+            duvet.castShadow = true;
+            bed.add(duvet);
+
+            const pillow = new THREE.Mesh(
+                new THREE.BoxGeometry(0.45, 0.1, 0.3),
+                new THREE.MeshStandardMaterial({ color: 0xFFF8F0, roughness: 0.9 })
+            );
+            pillow.position.set(0, 0.72, -0.6);
+            pillow.castShadow = true;
+            bed.add(pillow);
+
+            bed.position.set(6, 0, 4);
+            scene.add(bed);
+
+            // 书桌
+            const desk = new THREE.Mesh(
+                new THREE.BoxGeometry(1.2, 0.75, 0.55),
+                new THREE.MeshStandardMaterial({ color: colors.furniture, roughness: 0.5 })
+            );
+            desk.position.set(7.5, 0.375, 4);
+            desk.castShadow = true;
+            scene.add(desk);
+
+            // 书架
+            const bookshelf = new THREE.Group();
+            for (let i = 0; i < 4; i++) {
+                const shelf = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.4, 0.03, 0.8),
+                    new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.5 })
+                );
+                shelf.position.set(0, 0.3 + i * 0.35, 0);
+                bookshelf.add(shelf);
+            }
+            bookshelf.position.set(8.7, 0.6, 4);
+            scene.add(bookshelf);
+
+            // 椅子
+            const chair = createChair();
+            chair.position.set(7.5, 0, 4.8);
+            chair.rotation.y = Math.PI;
+            scene.add(chair);
+
+            // 插座
+            createSocket(9.85, 0.5, 4, "bedroom");
+        }
+
+        function createBedroom3() {
+            // 榻榻米床
+            const tatami = new THREE.Mesh(
+                new THREE.BoxGeometry(1.8, 0.45, 1.8),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.7 })
+            );
+            tatami.position.set(6, 0.225, -3);
+            tatami.castShadow = true;
+            scene.add(tatami);
+
+            // 床垫
+            const mattress = new THREE.Mesh(
+                new THREE.BoxGeometry(1.7, 0.15, 1.7),
+                new THREE.MeshStandardMaterial({ color: colors.fabric, roughness: 0.95 })
+            );
+            mattress.position.set(6, 0.525, -3);
+            mattress.castShadow = true;
+            scene.add(mattress);
+
+            // 抱枕
+            const cushion = new THREE.Mesh(
+                new THREE.BoxGeometry(0.4, 0.15, 0.4),
+                new THREE.MeshStandardMaterial({ color: colors.fabricAccent, roughness: 0.9 })
+            );
+            cushion.position.set(6, 0.6, -3.4);
+            cushion.castShadow = true;
+            scene.add(cushion);
+
+            // 小桌子
+            const smallTable = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.3, 0.3, 0.35, 24),
+                new THREE.MeshStandardMaterial({ color: colors.wood, roughness: 0.5 })
+            );
+            smallTable.position.set(7.2, 0.175, -3);
+            smallTable.castShadow = true;
+            scene.add(smallTable);
+
+            // 插座
+            createSocket(9.85, 0.5, -3, "bedroom");
+        }
+
+        function createKitchen() {
+            // L型橱柜
+            const cabinetMaterial = new THREE.MeshStandardMaterial({ 
+                color: colors.furnitureLight, 
+                roughness: 0.4 
+            });
+
+            // 地柜
+            const baseCabinet1 = new THREE.Mesh(
+                new THREE.BoxGeometry(3, 0.9, 0.6),
+                cabinetMaterial
+            );
+            baseCabinet1.position.set(-7.5, 0.45, -8.5);
+            baseCabinet1.castShadow = true;
+            scene.add(baseCabinet1);
+
+            const baseCabinet2 = new THREE.Mesh(
+                new THREE.BoxGeometry(0.6, 0.9, 2),
+                cabinetMaterial
+            );
+            baseCabinet2.position.set(-9.5, 0.45, -7);
+            baseCabinet2.castShadow = true;
+            scene.add(baseCabinet2);
+
+            // 台面
+            const countertop = new THREE.Mesh(
+                new THREE.BoxGeometry(3.2, 0.05, 0.65),
+                new THREE.MeshStandardMaterial({ color: 0xE8E4DC, roughness: 0.3, metalness: 0.1 })
+            );
+            countertop.position.set(-7.5, 0.925, -8.5);
+            countertop.castShadow = true;
+            scene.add(countertop);
+
+            const countertop2 = new THREE.Mesh(
+                new THREE.BoxGeometry(0.65, 0.05, 2.1),
+                new THREE.MeshStandardMaterial({ color: 0xE8E4DC, roughness: 0.3, metalness: 0.1 })
+            );
+            countertop2.position.set(-9.5, 0.925, -7);
+            countertop2.castShadow = true;
+            scene.add(countertop2);
+
+            // 吊柜
+            const wallCabinet = new THREE.Mesh(
+                new THREE.BoxGeometry(2.5, 0.7, 0.35),
+                cabinetMaterial
+            );
+            wallCabinet.position.set(-7.5, 2.2, -8.65);
+            wallCabinet.castShadow = true;
+            scene.add(wallCabinet);
+
+            // 水槽
+            const sink = new THREE.Mesh(
+                new THREE.BoxGeometry(0.5, 0.15, 0.4),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.8, roughness: 0.2 })
+            );
+            sink.position.set(-8.5, 0.95, -8.5);
+            scene.add(sink);
+
+            // 水龙头
+            const faucet = new THREE.Mesh(
+                new THREE.TorusGeometry(0.08, 0.015, 8, 16, Math.PI),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.9, roughness: 0.1 })
+            );
+            faucet.rotation.x = Math.PI / 2;
+            faucet.position.set(-8.5, 1.1, -8.3);
+            scene.add(faucet);
+
+            // 冰箱
+            const fridge = new THREE.Mesh(
+                new THREE.BoxGeometry(0.65, 1.7, 0.7),
+                new THREE.MeshStandardMaterial({ color: colors.applianceWhite, roughness: 0.3, metalness: 0.4 })
+            );
+            fridge.position.set(-9.5, 0.85, -8.5);
+            fridge.castShadow = true;
+            scene.add(fridge);
+
+            // 微波炉
+            const microwave = new THREE.Mesh(
+                new THREE.BoxGeometry(0.45, 0.3, 0.35),
+                new THREE.MeshStandardMaterial({ color: colors.appliance, roughness: 0.4, metalness: 0.5 })
+            );
+            microwave.position.set(-7, 1.1, -8.5);
+            microwave.castShadow = true;
+            scene.add(microwave);
+
+            // 插座
+            createSocket(-9.85, 0.5, -7, "kitchen");
+            createSocket(-9.85, 1.3, -8.5, "kitchen");
+        }
+
+        function createBathroom1() {
+            // 洗手台
+            const vanity = new THREE.Mesh(
+                new THREE.BoxGeometry(0.8, 0.85, 0.5),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.4 })
+            );
+            vanity.position.set(-8.5, 0.425, 7.5);
+            vanity.castShadow = true;
+            scene.add(vanity);
+
+            // 台盆
+            const basin = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.25, 0.2, 0.15, 32),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.2, metalness: 0.1 })
+            );
+            basin.position.set(-8.5, 0.9, 7.5);
+            scene.add(basin);
+
+            // 镜子
+            const mirror = new THREE.Mesh(
+                new THREE.BoxGeometry(0.7, 0.6, 0.02),
+                new THREE.MeshStandardMaterial({ color: colors.glass, metalness: 0.9, roughness: 0.1 })
+            );
+            mirror.position.set(-9.85, 1.4, 7.5);
+            mirror.rotation.y = Math.PI / 2;
+            scene.add(mirror);
+
+            // 马桶
+            const toilet = new THREE.Group();
+            const toiletBase = new THREE.Mesh(
+                new THREE.BoxGeometry(0.35, 0.4, 0.5),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 })
+            );
+            toiletBase.position.y = 0.2;
+            toilet.add(toiletBase);
+
+            const toiletTank = new THREE.Mesh(
+                new THREE.BoxGeometry(0.35, 0.45, 0.2),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 })
+            );
+            toiletTank.position.set(0, 0.625, -0.2);
+            toilet.add(toiletTank);
+
+            toilet.position.set(-7.5, 0, 8);
+            toilet.rotation.y = Math.PI / 2;
+            scene.add(toilet);
+
+            // 淋浴房
+            const showerBase = new THREE.Mesh(
+                new THREE.BoxGeometry(0.9, 0.05, 0.9),
+                new THREE.MeshStandardMaterial({ color: 0xE0E0E0, roughness: 0.3 })
+            );
+            showerBase.position.set(-7.5, 0.025, 6.5);
+            scene.add(showerBase);
+
+            const glassPanel1 = new THREE.Mesh(
+                new THREE.BoxGeometry(0.02, 2, 0.9),
+                new THREE.MeshStandardMaterial({ color: colors.glass, metalness: 0.7, roughness: 0.1, transparent: true, opacity: 0.5 })
+            );
+            glassPanel1.position.set(-7.95, 1, 6.5);
+            scene.add(glassPanel1);
+
+            const glassPanel2 = new THREE.Mesh(
+                new THREE.BoxGeometry(0.9, 2, 0.02),
+                new THREE.MeshStandardMaterial({ color: colors.glass, metalness: 0.7, roughness: 0.1, transparent: true, opacity: 0.5 })
+            );
+            glassPanel2.position.set(-7.5, 1, 6.05);
+            scene.add(glassPanel2);
+
+            // 花洒
+            const showerHead = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.1, 0.12, 0.05, 16),
+                new THREE.MeshStandardMaterial({ color: colors.metal, metalness: 0.8, roughness: 0.2 })
+            );
+            showerHead.position.set(-7.5, 2.2, 6.5);
+            scene.add(showerHead);
+
+            // 插座（防水型）
+            createSocket(-9.85, 0.8, 7, "bathroom");
+        }
+
+        function createBathroom2() {
+            // 洗手台
+            const vanity = new THREE.Mesh(
+                new THREE.BoxGeometry(0.7, 0.85, 0.45),
+                new THREE.MeshStandardMaterial({ color: colors.furnitureLight, roughness: 0.4 })
+            );
+            vanity.position.set(8.5, 0.425, 7.5);
+            vanity.castShadow = true;
+            scene.add(vanity);
+
+            const basin = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.22, 0.18, 0.12, 32),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.2 })
+            );
+            basin.position.set(8.5, 0.88, 7.5);
+            scene.add(basin);
+
+            // 镜子
+            const mirror = new THREE.Mesh(
+                new THREE.BoxGeometry(0.6, 0.5, 0.02),
+                new THREE.MeshStandardMaterial({ color: colors.glass, metalness: 0.9, roughness: 0.1 })
+            );
+            mirror.position.set(9.85, 1.35, 7.5);
+            mirror.rotation.y = -Math.PI / 2;
+            scene.add(mirror);
+
+            // 马桶
+            const toilet = new THREE.Group();
+            const toiletBase = new THREE.Mesh(
+                new THREE.BoxGeometry(0.35, 0.4, 0.5),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 })
+            );
+            toiletBase.position.y = 0.2;
+            toilet.add(toiletBase);
+
+            const toiletTank = new THREE.Mesh(
+                new THREE.BoxGeometry(0.35, 0.45, 0.2),
+                new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.3 })
+            );
+            toiletTank.position.set(0, 0.625, -0.2);
+            toilet.add(toiletTank);
+
+            toilet.position.set(7.5, 0, 6);
+            toilet.rotation.y = -Math.PI / 2;
+            scene.add(toilet);
+
+            // 淋浴区
+            const showerArea = new THREE.Mesh(
+                new THREE.BoxGeometry(0.85, 0.03, 0.85),
+                new THREE.MeshStandardMaterial({ color: 0xD8D0C8, roughness: 0.4 })
+            );
+            showerArea.position.set(7.5, 0.015, 6.5);
+            scene.add(showerArea);
+
+            // 插座
+            createSocket(9.85, 0.8, 7, "bathroom");
+        }
+
+        function createSocket(x, y, z, room) {
+            // 插座面板
+            const socket = new THREE.Mesh(
+                new THREE.BoxGeometry(0.08, 0.08, 0.02),
+                new THREE.MeshStandardMaterial({ 
+                    color: colors.socket, 
+                    roughness: 0.5,
+                    metalness: 0.3,
+                    emissive: colors.socket,
+                    emissiveIntensity: 0.2
+                })
+            );
+            socket.position.set(x, y, z);
+            
+            // 根据位置调整朝向
+            if (Math.abs(x) > 9) {
+                socket.rotation.y = Math.sign(x) * Math.PI / 2;
+            }
+            
+            scene.add(socket);
+
+            // 插孔细节
+            const holeGeometry = new THREE.CircleGeometry(0.015, 8);
+            const holeMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 });
+            
+            const hole1 = new THREE.Mesh(holeGeometry, holeMaterial);
+            hole1.position.set(0, 0.02, 0.011);
+            socket.add(hole1);
+
+            const hole2 = new THREE.Mesh(holeGeometry, holeMaterial);
+            hole2.position.set(0, -0.02, 0.011);
+            socket.add(hole2);
+
+            const hole3 = new THREE.Mesh(holeGeometry, holeMaterial);
+            hole3.position.set(0.025, 0, 0.011);
+            hole3.rotation.z = Math.PI / 2;
+            socket.add(hole3);
+        }
+
+        function setView(viewName) {
+            const views = {
+                overview: { pos: [20, 18, 20], target: [0, 0, 0] },
+                living: { pos: [8, 8, 12], target: [0, 0, 4] },
+                dining: { pos: [8, 8, -10], target: [0, 0, -6] },
+                master: { pos: [-10, 6, 8], target: [-6, 0, 4] },
+                bedroom2: { pos: [10, 6, 8], target: [6, 0, 4] },
+                bedroom3: { pos: [10, 6, -6], target: [6, 0, -3] },
+                kitchen: { pos: [-12, 6, -10], target: [-8, 0, -8] },
+                bathroom1: { pos: [-10, 5, 10], target: [-8, 0, 7] },
+                bathroom2: { pos: [10, 5, 10], target: [8, 0, 7] }
+            };
+
+            const view = views[viewName];
+            if (view) {
+                camera.position.set(...view.pos);
+                controls.target.set(...view.target);
+                controls.update();
+            }
+        }
+
+        function toggleWalls() {
+            showWalls = !showWalls;
+            walls.forEach(wall => {
+                wall.visible = showWalls;
+            });
+        }
+
+        function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-        
-        // 动画循环
+        }
+
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
         }
-        
-        animate();
+
+        // 初始化
+        init();
     </script>
 </body>
 </html>
